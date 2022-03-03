@@ -2,7 +2,8 @@
 
 ### Project下载
 
-* 有整合好源码和依赖库的完整工程项目，文件比较大，可到Q群共享内下载: Project_OcrLiteOnnxLibTest.7z
+* 整合好源码和依赖库的完整工程项目，可以在Release中下载
+* 可到Q群共享内下载: Project_OcrLiteOnnxLibTest.7z
 * Q群号码参考主项目：https://github.com/DayBreak-u/chineseocr_lite
 
 ### 介绍
