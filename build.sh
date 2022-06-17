@@ -30,13 +30,14 @@ mkdir -p $sysOS
 pushd $sysOS
 
 echo "cmake -DCMAKE_INSTALL_PREFIX=install -DCMAKE_BUILD_TYPE=$BUILD_TYPE .."
-cmake -DCMAKE_INSTALL_PREFIX=install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+cmake -DCMAKE_INSTALL_PREFIX=install ..
 cmake --build . --config $BUILD_TYPE -j $NUM_THREADS
 cmake --build . --config $BUILD_TYPE --target install
 popd
 
 echo "========输出文件夹:$sysOS/install========"
 echo "请运行输出文件夹内的run-test.sh脚本进行测试"
+echo "cd $sysOS/install"
 echo "chmod a+x run-test.sh"
 echo "./run-test.sh"
 echo

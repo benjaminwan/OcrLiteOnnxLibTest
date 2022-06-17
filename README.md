@@ -17,7 +17,7 @@
 * OpenCV静态库：opencv-(版本号)-平台.7z，
 * 把压缩包解压到opencv-static目录，windows平台需要注意目录层次，解压后目录结构如下
 * windows平台请选择vs2017版本(也可以用于vs2019编译)
-* 程序版本v1.6.0需要opencv 4.5.4
+* OCR dll版本v1.7.0依赖opencv 4.6.0
 
 ```
 opencv-static

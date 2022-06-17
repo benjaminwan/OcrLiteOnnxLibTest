@@ -16,9 +16,6 @@ else
     echo "Other OS: $sysOS"
 fi
 
-echo "Setting the Number of Threads=$NUM_THREADS Using an OpenMP Environment Variable"
-set OMP_NUM_THREADS=$NUM_THREADS
-
 PrepareVar
 
 TARGET_IMG=images/1.jpg

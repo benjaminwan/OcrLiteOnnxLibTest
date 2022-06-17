@@ -6,7 +6,7 @@
 #define REC_MODEL "models/crnn_lite_lstm.onnx"
 #define KEY_FILE  "models/keys.txt"
 
-#define THREAD_NUM   3
+#define THREAD_NUM 3
 
 #ifdef WIN32
 const char* DEFAULT_IMG_PATH = "images\\";

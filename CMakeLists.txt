@@ -10,35 +10,6 @@ project(OcrLibTest)
 set(CMAKE_CXX_STANDARD 11)
 add_definitions(-DUNICODE -D_UNICODE)
 
-# OpenMP flags for MACOS
-if (APPLE)
-    if (CMAKE_C_COMPILER_ID MATCHES "Clang")
-        set(OpenMP_C "${CMAKE_C_COMPILER}")
-        set(OpenMP_C_FLAGS "-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include")
-        set(OpenMP_C_LIB_NAMES "omp")
-        set(OpenMP_omp_LIBRARY ${OpenMP_C_LIB_NAMES})
-    endif ()
-    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        set(OpenMP_CXX "${CMAKE_CXX_COMPILER}")
-        set(OpenMP_CXX_FLAGS "-Xpreprocessor -fopenmp -I/usr/local/opt/libomp/include")
-        set(OpenMP_CXX_LIB_NAMES "omp")
-        set(OpenMP_omp_LIBRARY ${OpenMP_C_LIB_NAMES})
-    endif ()
-    link_directories("/usr/local/opt/libomp/lib")
-endif ()
-# End Of OpenMP flags for MACOS
-
-# OpenMP
-FIND_PACKAGE(OpenMP REQUIRED)
-if (OPENMP_FOUND)
-    message("OPENMP FOUND")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-    message(${CMAKE_EXE_LINKER_FLAGS})
-endif ()
-# End Of OpenMP
-
 # OpenCV for include
 set(BUILD_SHARED_LIBS false)
 include(${CMAKE_CURRENT_SOURCE_DIR}/opencv-static/OpenCVWrapperConfig.cmake)
@@ -65,12 +36,8 @@ endif (OcrLib_FOUND)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(TESTSRC src/maintest.cpp)
 add_executable(OcrLibTest ${TESTSRC})
-if (UNIX)
-    target_link_libraries(OcrLibTest ${OpenMP_CXX_LIB_NAMES} ${OcrLib_LIBS} ${OpenCV_LIBS})
-else ()
-    include_directories(${OpenCV_INCLUDE_DIRS})
-    target_link_libraries(OcrLibTest ${OpenMP_CXX_LIB_NAMES} ${OcrLib_LIBS})
-endif ()
+include_directories(${OpenCV_INCLUDE_DIRS})
+target_link_libraries(OcrLibTest ${OcrLib_LIBS})
 
 # Install exe
 install(TARGETS OcrLibTest EXPORT OcrLibTest)

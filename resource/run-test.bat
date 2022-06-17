@@ -2,8 +2,6 @@ chcp 65001
 :: Set Param
 @ECHO OFF
 @SETLOCAL
-echo "Setting the Number of Threads=%NUMBER_OF_PROCESSORS% Using an OpenMP Environment Variable"
-set OMP_NUM_THREADS=%NUMBER_OF_PROCESSORS%
 
 SET TARGET_IMG=images/1.jpg
 if not exist %TARGET_IMG% (

@@ -1,6 +1,6 @@
 #include "maintest.h"
 #include <stdarg.h> //windows&linux for va_start
-#include <OcrLiteCaller.h>
+#include <OcrLiteCApi.h>
 #include <stdexcept>
 #include <cstdlib>
 
@@ -15,10 +15,27 @@ void Logger(const char *format, ...) {
 }
 
 int main(int argc, char *argv[]) {
-    OcrLiteCaller ocrLite;
-    ocrLite.setNumThread(THREAD_NUM);
-    ocrLite.initModels(DET_MODEL, CLS_MODEL, REC_MODEL, KEY_FILE);
-    OcrResult result = ocrLite.detect(DEFAULT_IMG_PATH, DEFAULT_IMG_NAME, 50, 1024, 0.6, 0.3, 2.0, 1, 1);
-    Logger("%s\n", result.strRes.c_str());
+    OCR_HANDLE handle = OcrInit(DET_MODEL, CLS_MODEL, REC_MODEL, KEY_FILE, THREAD_NUM);
+    if (!handle) {
+        printf("cannot initialize the OCR Engine.\n");
+        return -1;
+    }
+    OCR_PARAM param = {0};
+    BOOL bRet = OcrDetect(handle, DEFAULT_IMG_PATH, DEFAULT_IMG_NAME, &param);
+    if (bRet) {
+        int nLen = OcrGetLen(handle);
+        if (nLen > 0) {
+            char *szInfo = (char *) malloc(nLen);
+            if (szInfo) {
+                if (OcrGetResult(handle, szInfo, nLen)) {
+                    printf("%s", szInfo);
+                }
+                free(szInfo);
+            }
+        }
+    }
+    if (handle) {
+        OcrDestroy(handle);
+    }
     return 0;
 }
