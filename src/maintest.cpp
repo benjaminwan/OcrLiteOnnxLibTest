@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     OCR_PARAM param = {0};
-    BOOL bRet = OcrDetect(handle, DEFAULT_IMG_PATH, DEFAULT_IMG_NAME, &param);
+    OCR_BOOL bRet = OcrDetect(handle, DEFAULT_IMG_PATH, DEFAULT_IMG_NAME, &param);
     if (bRet) {
         int nLen = OcrGetLen(handle);
         if (nLen > 0) {
